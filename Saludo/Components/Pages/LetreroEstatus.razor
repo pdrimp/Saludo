@@ -1,0 +1,43 @@
+﻿@page "/codigo"
+@rendermode InteractiveServer
+<div class="row mb-3">
+    <div class="col">
+        <label for="txtCodigo">Código</label>
+        <input id="txtCodigo" class="form-control" @bind="Codigo" />
+    </div>
+</div>
+<button class="btn btn-primary mb-3" @onclick="Ejecutar">Ejecutar</button>
+
+<div class="alert alert-@_color"
+    <h3>@_mensaje</h3>
+</div>
+
+@code {
+    [Parameter]
+    public int Codigo { get; set; }
+    private string _color = "info";
+    private string _mensaje = "";
+
+    private void Ejecutar()
+    {
+        switch(Codigo)
+        {
+            case 200:
+                _mensaje = "Sistema Operacional";
+                _color = "success";
+                break;
+            case 404:
+                _mensaje = "Recurso No Encontrado";
+                _color = "warning";
+                break;
+            case 500:
+                _mensaje = "Error Interno del Servidor";
+                _color = "danger";
+                break;
+            default:
+                _mensaje = "Estado Desconocido";
+                _color = "info";
+                break;
+        }
+    }
+}

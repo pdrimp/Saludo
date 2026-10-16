@@ -1,0 +1,118 @@
+﻿@page "/ciclos"
+@rendermode InteractiveServer
+<h3>Ciclos</h3>
+<div class="row mb-3">
+    <div class="col-2">
+        <label class="col-form-label" for="txtNumero">Calificación</label>
+    </div>
+    <div class="col-auto">
+        <input class="form-control" id="txtNumero" @bind="numero" />
+    </div>
+</div>
+<button class="btn btn-primary mb-3" @onclick="Ejecutar">Guardar</button>
+<button class="btn btn-danger mb-3" @onclick="Eliminar">Eliminar</button>
+<button class="btn btn-info mb-3" @onclick="Buscar">Buscar</button>
+<hr />
+<h3>Calificaciones capturadas: @calificaciones.Count</h3>
+<hr />
+<h3>@mensaje</h3>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Calificación</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < calificaciones.Count; i++)
+        {
+            int indice = i;
+            <tr>
+                <td>@calificaciones[indice]</td>
+                <td><button class="btn btn-sm btn-danger" @onclick="() => calificaciones.RemoveAt(indice)">Eliminar</button></td>
+            </tr>
+        }
+
+        @*         @foreach (int valor in calificaciones)
+        {
+            <tr><td>@valor</td></tr>
+        }
+ *@
+    </tbody>
+</table>
+
+
+@* @((MarkupString)codigoHTML) *@
+
+@* <div class="row">
+    <div class="col-6">
+        @((MarkupString)pares)
+    </div>
+    <div class="col-6">
+        @((MarkupString)impares)
+    </div>
+</div>
+
+ *@
+@code {
+    private int numero;
+    private string codigoHTML = "";
+    private string pares = "";
+    private string impares = "";
+    private List<int> calificaciones = new();
+    private string mensaje = "";
+
+    private void Buscar()
+    {
+        mensaje = (calificaciones.Contains(numero)) ? "Calificación encontrada" : "No encontrada";
+    }
+
+    private void Eliminar()
+    {
+        calificaciones.RemoveAt(numero);
+    }
+
+    private void Ejecutar()
+    {
+        calificaciones.Add(numero);
+
+
+        // codigoHTML = "<table class=\"table table-striped\"><tbody>";
+        // for (int contador = 0; contador <= numero; contador++)
+        // {
+        //     codigoHTML += $"<tr><td>{contador}</td></tr>";
+        // }
+
+        // pares = "<table class=\"table table-striped\"><tbody>";
+        // impares = "<table class=\"table table-striped\"><tbody>";
+        // for (int contador = 0; contador <= numero; contador++)
+        // {
+        //     if (contador%2==0)
+        //     {
+        //         pares += $"<tr><td>{contador}</td></tr>";
+        //     }
+        //     else
+        //     {
+        //         impares += $"<tr><td>{contador}</td></tr>";
+        //     }
+
+
+
+        // int contador = 0;
+        // while (contador <= numero)
+        // {
+        //     codigoHTML += $"<tr><td>{contador}</td></tr>";
+        //     contador++;
+        // }
+
+        // do
+        // {
+        //     codigoHTML += $"<tr><td>{contador}</td></tr>";
+        //     contador++;
+        // } while (contador <= numero);
+        // codigoHTML += "</tbody></table>";
+        // pares += "</tbody></table>";
+        // impares += "</tbody></table>";
+    }
+}
